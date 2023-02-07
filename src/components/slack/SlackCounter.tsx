@@ -9,6 +9,7 @@ export interface SlackCounterProps {
   onSelect?: (emoji: string) => void;
   onAdd?: () => void;
   disableAdd?: boolean;
+  disableSlackCss?: boolean;
 }
 
 export const SlackCounter = React.forwardRef<HTMLDivElement, SlackCounterProps>(
@@ -19,6 +20,7 @@ export const SlackCounter = React.forwardRef<HTMLDivElement, SlackCounterProps>(
       onSelect = defaultProps.onSelect,
       onAdd = defaultProps.onAdd,
       disableAdd = defaultProps.disableAdd,
+      disableSlackCss = defaultProps.disableSlackCss,
     },
     ref
   ) => {
@@ -26,7 +28,7 @@ export const SlackCounter = React.forwardRef<HTMLDivElement, SlackCounterProps>(
 
     return (
       <>
-        <SlackCSS />
+        {!disableSlackCss && <SlackCSS />}
         <Hover ref={ref} style={counterStyle}>
           {Object.keys(groups).map((emoji: string) => {
             const names = groups[emoji].map(({ by }: CounterObject) => {
@@ -78,6 +80,7 @@ export const defaultProps: Required<SlackCounterProps> = {
     console.log('add');
   },
   disableAdd: false,
+  disableSlackCss: false,
 };
 
 const counterStyle = {
