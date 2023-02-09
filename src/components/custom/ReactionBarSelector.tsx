@@ -7,6 +7,7 @@ export interface ReactionBarSelectorProps {
   reactions?: Reaction[];
   onSelect?: (key: string) => void;
   style?: React.CSSProperties;
+  emojiStyle?: React.CSSProperties;
 }
 
 export const ReactionBarSelector = React.forwardRef<
@@ -19,6 +20,7 @@ export const ReactionBarSelector = React.forwardRef<
       reactions = defaultProps.reactions,
       onSelect = defaultProps.onSelect,
       style = defaultProps.style,
+      emojiStyle: customEmojiStyle = defaultProps.emojiStyle,
     },
     ref
   ) => {
@@ -29,6 +31,7 @@ export const ReactionBarSelector = React.forwardRef<
         display: 'flex',
         alignItems: 'center',
         fontSize: iconSize,
+        ...customEmojiStyle,
       };
     }, [iconSize]);
 
@@ -60,6 +63,7 @@ export const defaultProps: Required<ReactionBarSelectorProps> = {
     { node: <div>😡</div>, label: 'angry', key: 'angry' },
   ],
   iconSize: 38,
+  emojiStyle: {},
   onSelect: (key: string) => {
     console.log(key);
   },
